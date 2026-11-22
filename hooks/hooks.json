@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SubagentStop": [
+      {
+        "matcher": "^sf:builder$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "g=\"$CLAUDE_PROJECT_DIR/factory/bin/gate\"; [ -f \"$g\" ] || exit 0; exec \"$g\" --hook"
+          }
+        ]
+      }
+    ]
+  }
+}

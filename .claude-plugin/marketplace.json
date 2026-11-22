@@ -1,0 +1,14 @@
+{
+  "name": "ai-factory",
+  "owner": {
+    "name": "ai-factory"
+  },
+  "description": "The software factory plugin for Claude Code.",
+  "plugins": [
+    {
+      "name": "sf",
+      "source": "./",
+      "description": "Builds GitHub issues labeled `factory` into merged PRs with a pipeline of Claude subagents."
+    }
+  ]
+}
