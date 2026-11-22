@@ -5,8 +5,8 @@ description: Install the software factory into the current repo. Use when the us
 
 # Install the software factory into this repo
 
-The plugin already provides the `factory` skill, the eight agents and the
-builder's gate hook. What each repo needs is its own `factory/` folder: the
+The plugin already provides the `factory` skill and the eight agents. What
+each repo needs is its own `factory/` folder: the
 scripts find the repo from their own location, and `checks.sh` and
 `config.json` are repo-specific. Work in the repo root
 (`git rev-parse --show-toplevel`).

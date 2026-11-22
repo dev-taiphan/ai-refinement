@@ -96,15 +96,15 @@ skills/analyze/SKILL.md           local ticket analysis
 agents/                           factory: intake, spec-writer, builder, 4 reviewers, approver
                                   analysis: ticket-analyst, impact-analyst, dataflow-analyst,
                                   security-analyst, tech-spec-writer, test-planner, analysis-reviewer
-hooks/hooks.json                  runs factory/bin/gate --hook when the builder stops
 scripts/check_refs.py             checks every `path:line` citation in an analysis
 templates/factory/                copied into each repo by init
 ```
 
 ## Design notes
 
-- The builder's gate hook lives in `hooks/hooks.json`, because Claude Code
-  ignores `hooks` in plugin agents' frontmatter.
+- The plugin ships no hooks: the directory accepts command hooks only from
+  verified organizations. The builder runs `checks.sh` itself before it
+  finishes, and the gate runs it again after.
 - The orchestrator spawns agents as `sf:<agent>`.
 - Project-specific tailoring goes in the repo's `AGENTS.md` instead of editing
   the agents, which are shared across repos.

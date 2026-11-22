@@ -59,7 +59,8 @@ other jobs.
 Run `bash <main checkout>/factory/checks.sh` from the worktree
 (`cd <worktree> && bash <main checkout>/factory/checks.sh`). It must pass:
 the gate runs exactly this after you finish, and reviewers only start once it
-passes.
+passes. Nothing stops you automatically when it fails, so run it once more
+after your last commit and before you write build.md.
 
 Then verify every acceptance criterion and record the evidence in build.md: the
 command you ran and its result, or what the page showed.
