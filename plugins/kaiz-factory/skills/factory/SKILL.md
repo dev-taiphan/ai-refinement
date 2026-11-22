@@ -1,6 +1,6 @@
 ---
 name: factory
-description: Run the software factory on GitHub issues. Use when the user types /factory run, /factory run <n>, or /factory followed by anything else (a question, feedback on a job, or a new feature). The session that runs it becomes the one orchestrator for every job.
+description: Run the software factory on GitHub issues. Use when the user types /kaiz-factory:factory run, /kaiz-factory:factory run <n>, or /kaiz-factory:factory followed by anything else (a question, feedback on a job, or a new feature). The session that runs it becomes the one orchestrator for every job.
 ---
 
 # Factory
@@ -13,9 +13,9 @@ moves. When a script refuses, its message says why. Fix the cause or stop and
 tell the user; never work around it.
 
 ```
-/factory run          drain the queue: every open `factory` issue, `concurrency` at a time; also resumes
-/factory run <n>      run one issue now
-/factory <anything>   talk to the factory: ask about jobs, give feedback, file a feature
+/kaiz-factory:factory run          drain the queue: every open `factory` issue, `concurrency` at a time; also resumes
+/kaiz-factory:factory run <n>      run one issue now
+/kaiz-factory:factory <anything>   talk to the factory: ask about jobs, give feedback, file a feature
 ```
 
 Before anything else, check that `factory/bin/job` and `factory/checks.sh`
@@ -160,7 +160,7 @@ A job is finished for this run when it reaches `merged`, `rejected`,
 A person can merge a job's PR by hand at any stage. `factory/bin/job queue`
 then moves the job to `merged`; stop any agents still running for it.
 
-## /factory run
+## /kaiz-factory:factory run
 
 1. Run `factory/bin/job queue`. Each line is `action  issue  job  stage  note`:
    `resume` (pick it up from its stage), `new` (no job yet), `hold` (no free
@@ -177,7 +177,7 @@ then moves the job to `merged`; stop any agents still running for it.
    `resume` lines you aren't already running and its `new` lines.
 4. When nothing is queued or running, print `factory/bin/job summary <ids>`
    for the jobs this run touched, then list what waits on a human: PRs to
-   review (merge one to approve it, or give feedback with `/factory`) and
+   review (merge one to approve it, or give feedback with `/kaiz-factory:factory`) and
    questions waiting on authors.
 
 **Resuming.** State lives in files, so a new session picks up where a dead one
@@ -189,15 +189,15 @@ the current round; `approve` respawns the approver; `merging` runs
 `factory/bin/job merge <id>`. A `needs-info` job the author has answered shows
 as `resume`: run `factory/bin/job advance <id> intake` and go to **intake**.
 
-## /factory run <n>
+## /kaiz-factory:factory run <n>
 
 Run one issue with the same steps. If `factory/bin/job queue` shows a job for
 it, resume that job; otherwise `factory/bin/job create <n>`. Finish with the
 summary line for that job.
 
-## /factory <anything>
+## /kaiz-factory:factory <anything>
 
-Anything else after `/factory` is the user talking to the factory. Work out
+Anything else after `/kaiz-factory:factory` is the user talking to the factory. Work out
 what they want and act on it. Every change of state still goes through the
 scripts. When it isn't clear which job they mean, or whether it's feedback or a
 new feature, ask.
@@ -236,7 +236,7 @@ new feature, ask.
 - **An answer to a `needs-info` question**: post their words on the issue with
   `gh issue comment <n> --body "<their answer>"`, then
   `factory/bin/job advance <id> intake` and go to **intake**.
-- **A new feature**: create the issue, then do **/factory run <n>** with the
+- **A new feature**: create the issue, then do **/kaiz-factory:factory run <n>** with the
   new number:
 
   ```bash
