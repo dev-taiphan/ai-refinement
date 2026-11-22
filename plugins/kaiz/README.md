@@ -1,6 +1,6 @@
-# sf: ticket analysis for Claude Code
+# kaiz: ticket analysis for Claude Code
 
-`/sf:analyze` reads a ticket from your repo, studies the code it touches, and
+`/kaiz:analyze` reads a ticket from your repo, studies the code it touches, and
 writes a set of design documents next to it. Every claim about existing code is
 cited as `path:line`, and a checker agent confirms each citation points at a
 real file and line. The plugin never changes your code, never runs a build, and
@@ -12,9 +12,9 @@ Put a ticket in `.issues/<ticket>/ticket.md`, with any screenshots or notes in
 the same folder, then run:
 
 ```
-/sf:analyze 123              one ticket
-/sf:analyze 123 <notes>      with extra instructions for the analysts
-/sf:analyze                  every ticket not analysed yet or changed since
+/kaiz:analyze 123              one ticket
+/kaiz:analyze 123 <notes>      with extra instructions for the analysts
+/kaiz:analyze                  every ticket not analysed yet or changed since
 ```
 
 The analysis lands in `.issues/<ticket>/output/`:

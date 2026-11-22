@@ -1,6 +1,6 @@
 ---
 name: analyze
-description: Analyse local tickets against the codebase without writing code. Use when the user types /sf:analyze, /sf:analyze <ticket>, or asks to analyse a ticket in .issues/<ticket>/ticket.md. Writes assessment, impact analysis, data flow, tech spec, implementation plan, test plan, security review and a summary to .issues/<ticket>/output/.
+description: Analyse local tickets against the codebase without writing code. Use when the user types /kaiz:analyze, /kaiz:analyze <ticket>, or asks to analyse a ticket in .issues/<ticket>/ticket.md. Writes assessment, impact analysis, data flow, tech spec, implementation plan, test plan, security review and a summary to .issues/<ticket>/output/.
 ---
 
 # Analyze
@@ -14,9 +14,9 @@ every claim they make is tied to the codebase with `path:line` citations that
 a script checks.
 
 ```
-/sf:analyze                    every ticket that has no analysis yet or changed since
-/sf:analyze <ticket>           one ticket, e.g. 123 or PROJ-42
-/sf:analyze <ticket> <notes>   one ticket, with extra instructions for the analysts
+/kaiz:analyze                    every ticket that has no analysis yet or changed since
+/kaiz:analyze <ticket>           one ticket, e.g. 123 or PROJ-42
+/kaiz:analyze <ticket> <notes>   one ticket, with extra instructions for the analysts
 ```
 
 ## Setup
@@ -35,7 +35,7 @@ a script checks.
 ## Spawning agents
 
 Spawn each agent with the Agent tool, in the background, with
-`subagent_type` `sf:<name>` and no `model` (their frontmatter
+`subagent_type` `kaiz:<name>` and no `model` (their frontmatter
 sets it). Every prompt starts with the ticket header:
 
 ```
@@ -98,5 +98,5 @@ When the user asks about a ticket's analysis rather than running one, answer
 from its `output/` documents, reading them in full as needed, and cite them.
 This plugin only analyses; it never changes code. To build from an analysis,
 the user can follow `05-implementation-plan.md` step by step, or, with the
-`sf-factory` plugin installed, file the ticket as a GitHub issue labeled
-`factory` and run `/sf-factory:factory run <n>`.
+`kaiz-factory` plugin installed, file the ticket as a GitHub issue labeled
+`factory` and run `/kaiz-factory:factory run <n>`.

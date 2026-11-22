@@ -20,7 +20,7 @@ tell the user; never work around it.
 
 Before anything else, check that `factory/bin/job` and `factory/checks.sh`
 exist in the repo root. If they don't, the factory isn't installed in this
-repo: tell the user to run `/sf-factory:init` first, and stop.
+repo: tell the user to run `/kaiz-factory:init` first, and stop.
 
 ## The pipeline
 
@@ -72,8 +72,8 @@ agent and for the human, not for you. Your context has to last the whole run.
 
 Spawn every agent with the Agent tool, in the background, with
 `subagent_type` set to the agent's name prefixed with this plugin's name:
-`sf-factory:intake`, `sf-factory:builder`,
-`sf-factory:reviewer-<r>` and so on. Wherever this file says to spawn
+`kaiz-factory:intake`, `kaiz-factory:builder`,
+`kaiz-factory:reviewer-<r>` and so on. Wherever this file says to spawn
 an agent by its bare name, use the prefixed form. Pass `model` from `job.json`
 `agents` for the reviewers, and never for intake, spec-writer, builder or
 approver: their frontmatter sets it. Each agent replies with one line;

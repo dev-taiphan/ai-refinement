@@ -1,4 +1,4 @@
-# Hướng dẫn cài đặt và sử dụng plugin sf (software factory)
+# Hướng dẫn cài đặt và sử dụng plugin kaiz (software factory)
 
 Plugin này biến các GitHub issue thành pull request. Bạn gắn label `factory`
 cho issue, chạy một lệnh, và một nhóm agent Claude sẽ lần lượt đánh giá issue,
@@ -112,10 +112,10 @@ Repo này là một marketplace tên `ai-factory` với **hai plugin**:
 
 | Plugin | Lệnh | Nội dung | Cần gì |
 |---|---|---|---|
-| `sf` | `/sf:analyze` | phân tích ticket cục bộ (mục 12); chỉ có Markdown, không có script | chỉ Claude Code |
-| `sf-factory` | `/sf-factory:init`, `/sf-factory:factory` | pipeline GitHub issue → PR (mục 1 đến 11) | `gh`, Python, Git Bash |
+| `kaiz` | `/kaiz:analyze` | phân tích ticket cục bộ (mục 12); chỉ có Markdown, không có script | chỉ Claude Code |
+| `kaiz-factory` | `/kaiz-factory:init`, `/kaiz-factory:factory` | pipeline GitHub issue → PR (mục 1 đến 11) | `gh`, Python, Git Bash |
 
-Chỉ dùng phân tích ticket thì cài `sf` là đủ, không cần mục 2.
+Chỉ dùng phân tích ticket thì cài `kaiz` là đủ, không cần mục 2.
 
 ### Cách A: từ thư mục trên máy
 
@@ -123,8 +123,8 @@ Gõ trong Claude Code:
 
 ```
 /plugin marketplace add d:/ai-factory-plugin
-/plugin install sf@ai-factory
-/plugin install sf-factory@ai-factory
+/plugin install kaiz@ai-factory
+/plugin install kaiz-factory@ai-factory
 ```
 
 ### Cách B: từ GitHub (để chia sẻ cho người khác)
@@ -134,8 +134,8 @@ Gõ trong Claude Code:
 
 ```
 /plugin marketplace add your-org/ai-factory-plugin
-/plugin install sf@ai-factory
-/plugin install sf-factory@ai-factory
+/plugin install kaiz@ai-factory
+/plugin install kaiz-factory@ai-factory
 ```
 
 Nếu repo là private, người cài phải có quyền đọc repo đó.
@@ -144,8 +144,8 @@ Cũng có thể cài từ shell thay vì trong phiên Claude:
 
 ```bash
 claude plugin marketplace add your-org/ai-factory-plugin
-claude plugin install sf@ai-factory
-claude plugin install sf-factory@ai-factory
+claude plugin install kaiz@ai-factory
+claude plugin install kaiz-factory@ai-factory
 ```
 
 ### Chọn phạm vi cài
@@ -159,9 +159,9 @@ Khi chạy `/plugin install`, Claude Code hỏi phạm vi:
 
 ### Kiểm tra
 
-Gõ `/plugin` và xem `sf` và `sf-factory` có trong danh sách đã cài. Gõ `/` sẽ
-thấy các lệnh của chúng: `/sf:analyze`, `/sf-factory:init` và
-`/sf-factory:factory`.
+Gõ `/plugin` và xem `kaiz` và `kaiz-factory` có trong danh sách đã cài. Gõ `/` sẽ
+thấy các lệnh của chúng: `/kaiz:analyze`, `/kaiz-factory:init` và
+`/kaiz-factory:factory`.
 
 ### Dùng thử không cài
 
@@ -184,7 +184,7 @@ repo**.
 2. Chạy:
 
    ```
-   /sf-factory:init
+   /kaiz-factory:init
    ```
 
 Claude sẽ:
@@ -229,18 +229,18 @@ intake càng ít phải hỏi lại.
 ### Các lệnh
 
 ```
-/sf-factory:factory run          xử lý mọi issue có label factory
-/sf-factory:factory run 12       chỉ xử lý issue #12
-/sf-factory:factory <bất kỳ>     hỏi, góp ý, hoặc tạo tính năng mới
+/kaiz-factory:factory run          xử lý mọi issue có label factory
+/kaiz-factory:factory run 12       chỉ xử lý issue #12
+/kaiz-factory:factory <bất kỳ>     hỏi, góp ý, hoặc tạo tính năng mới
 ```
 
 Ví dụ cho dạng `<bất kỳ>`:
 
 ```
-/sf-factory:factory job nào đang chờ tôi?
-/sf-factory:factory issue 12 tốn bao nhiêu tiền?
-/sf-factory:factory tại sao job 003 bị chuyển cho người duyệt?
-/sf-factory:factory thêm nút xuất CSV ở trang báo cáo
+/kaiz-factory:factory job nào đang chờ tôi?
+/kaiz-factory:factory issue 12 tốn bao nhiêu tiền?
+/kaiz-factory:factory tại sao job 003 bị chuyển cho người duyệt?
+/kaiz-factory:factory thêm nút xuất CSV ở trang báo cáo
 ```
 
 Câu cuối sẽ tạo một issue mới có label `factory` rồi chạy luôn.
@@ -256,7 +256,7 @@ ví dụ:
 ```
 
 Hãy để phiên đó mở cho đến khi chạy xong. Nếu lỡ tắt, chạy lại
-`/sf-factory:factory run`, các job sẽ tiếp tục từ bước đang dở.
+`/kaiz-factory:factory run`, các job sẽ tiếp tục từ bước đang dở.
 
 Khi hết việc, factory in bảng tổng kết: các job đã chạy, chi phí, PR nào chờ
 bạn duyệt, câu hỏi nào chờ tác giả issue trả lời.
@@ -283,7 +283,7 @@ bạn duyệt, câu hỏi nào chờ tác giả issue trả lời.
 - **Yêu cầu sửa:** nói với factory cần đổi gì:
 
   ```
-  /sf-factory:factory issue 12: đổi màu nút sang màu chính và thêm test cho trường hợp rỗng
+  /kaiz-factory:factory issue 12: đổi màu nút sang màu chính và thêm test cho trường hợp rỗng
   ```
 
   Factory lưu góp ý vào `feedback-<k>.md`, cấp lại số vòng, và builder làm
@@ -291,7 +291,7 @@ bạn duyệt, câu hỏi nào chờ tác giả issue trả lời.
 - **Bỏ:**
 
   ```
-  /sf-factory:factory bỏ issue 12, không cần tính năng này nữa
+  /kaiz-factory:factory bỏ issue 12, không cần tính năng này nữa
   ```
 
   Factory ghi lý do lên issue, gỡ label, đóng PR. Issue vẫn mở.
@@ -302,7 +302,7 @@ Tác giả trả lời câu hỏi ngay trên issue. Lần chạy sau, job tự q
 intake. Bạn cũng có thể trả lời thay:
 
 ```
-/sf-factory:factory trả lời issue 12: chỉ cần hỗ trợ file CSV, không cần Excel
+/kaiz-factory:factory trả lời issue 12: chỉ cần hỗ trợ file CSV, không cần Excel
 ```
 
 ### Chạy lại một issue đã bị từ chối
@@ -357,7 +357,7 @@ Lưu ý:
 **Chi phí.** Factory chạy trên gói Claude của bạn. Mỗi job dùng nhiều agent,
 phần lớn là Opus. Intake chạy trên Fable, một lần mỗi issue; tùy gói, Fable có
 thể tính vào usage credits thay vì phần dùng có sẵn trong gói. Xem chi phí từng
-job trên dashboard hoặc hỏi `/sf-factory:factory chi phí issue 12`.
+job trên dashboard hoặc hỏi `/kaiz-factory:factory chi phí issue 12`.
 
 **Bắt đầu cẩn thận.** Đặt `"concurrency": 1`, chỉ gắn label cho một hai issue
 nhỏ, và đọc mọi PR cho đến khi bạn tin kết quả.
@@ -393,8 +393,8 @@ Hoặc gỡ rồi cài lại plugin. Bản cập nhật plugin **không** sửa 
 **Gỡ plugin:**
 
 ```
-/plugin uninstall sf@ai-factory
-/plugin uninstall sf-factory@ai-factory
+/plugin uninstall kaiz@ai-factory
+/plugin uninstall kaiz-factory@ai-factory
 /plugin marketplace remove ai-factory
 ```
 
@@ -408,7 +408,7 @@ thì xóa ba label trên GitHub. Xóa các worktree còn sót bằng `git worktr
 
 | Triệu chứng | Nguyên nhân thường gặp | Cách xử lý |
 |---|---|---|
-| Factory báo cần chạy init | repo chưa có `factory/` | chạy `/sf-factory:init` |
+| Factory báo cần chạy init | repo chưa có `factory/` | chạy `/kaiz-factory:init` |
 | `python3` mở Microsoft Store hoặc báo không tìm thấy | alias của Windows | làm theo mục 2, phần Windows |
 | `gh: command not found` | chưa cài hoặc chưa mở terminal mới | cài `gh`, mở terminal mới, `gh auth login` |
 | Mọi job đều gate FAIL | `checks.sh` lỗi ngay trên `main` | chạy `bash factory/checks.sh` ở thư mục gốc repo và sửa script |
@@ -417,7 +417,7 @@ thì xóa ba label trên GitHub. Xóa các worktree còn sót bằng `git worktr
 | Gate FAIL vì protected paths | builder sửa file bị khóa | xem `round-N/checks.md`; nếu cần sửa file đó thì bỏ nó khỏi `protected_paths` |
 | Builder không kiểm tra được giao diện | thiếu CLI `agent-browser` | cài `agent-browser`, hoặc kiểm tra giao diện thủ công trên PR |
 | Builder không tắt được dev server trên Windows | agent dùng `lsof`, Git Bash không có | tự tắt tiến trình trên cổng của job (5100 + 10n) |
-| Không thấy lệnh `/sf:...` | plugin chưa bật, hoặc phiên cloud/WSL | `/plugin` để kiểm tra; dùng phiên local |
+| Không thấy lệnh `/kaiz:...` | plugin chưa bật, hoặc phiên cloud/WSL | `/plugin` để kiểm tra; dùng phiên local |
 | Intake báo "Fable requires usage credits" | agent `intake` dùng model Fable, cần usage credits | nạp credits, hoặc đổi dòng `model: fable` trong `agents/intake.md` thành `opus` |
 | `job summary` báo "no price for model ..." | model mới chưa có trong bảng giá | thêm model đó vào `prices_usd_per_mtok` trong `factory/config.json` |
 
@@ -437,7 +437,7 @@ job (intake, spec, build, review từng vòng, decision) nằm trong cùng thư 
 Ngoài pipeline GitHub, plugin còn một chế độ **chỉ phân tích**. Bạn viết ticket
 thành file trong repo, và một nhóm agent phân tích nó dựa trên codebase thật
 rồi viết bộ tài liệu thiết kế. Chế độ này không sửa code, không tạo nhánh,
-không commit, không cần GitHub, `gh` hay `/sf-factory:init`.
+không commit, không cần GitHub, `gh` hay `/kaiz-factory:init`.
 
 ### Tạo ticket
 
@@ -464,9 +464,9 @@ Người dùng cần tải báo cáo doanh thu theo tháng dưới dạng CSV t�
 ### Chạy
 
 ```
-/sf:analyze 123
-/sf:analyze 123 tập trung vào hiệu năng khi có 1 triệu đơn hàng
-/sf:analyze
+/kaiz:analyze 123
+/kaiz:analyze 123 tập trung vào hiệu năng khi có 1 triệu đơn hàng
+/kaiz:analyze
 ```
 
 - Có mã ticket: phân tích ticket đó. Phần chữ phía sau mã được chuyển nguyên
@@ -526,8 +526,8 @@ Khi chạy lại một ticket đã có kết quả, thư mục `output/` cũ đ�
 
 Chế độ phân tích không viết code. Để build, tạo một GitHub issue có label
 `factory` (có thể dán nội dung `04-tech-spec.md` vào), rồi chạy
-`/sf-factory:factory run <số-issue>` trên repo đã chạy init (cần cài plugin
-`sf-factory`). Hoặc đưa
+`/kaiz-factory:factory run <số-issue>` trên repo đã chạy init (cần cài plugin
+`kaiz-factory`). Hoặc đưa
 `05-implementation-plan.md` cho Claude và làm theo từng bước.
 
 ### Chi phí

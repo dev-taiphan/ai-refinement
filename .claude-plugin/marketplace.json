@@ -6,13 +6,13 @@
   "description": "Claude Code plugins: ticket analysis grounded in your codebase, and a GitHub issue to pull request software factory.",
   "plugins": [
     {
-      "name": "sf",
-      "source": "./plugins/sf",
+      "name": "kaiz",
+      "source": "./plugins/kaiz",
       "description": "Analyses local tickets against your codebase into a cited set of design documents. Markdown only, no scripts."
     },
     {
-      "name": "sf-factory",
-      "source": "./plugins/sf-factory",
+      "name": "kaiz-factory",
+      "source": "./plugins/kaiz-factory",
       "description": "Builds GitHub issues labeled `factory` into merged PRs with a pipeline of Claude subagents."
     }
   ]

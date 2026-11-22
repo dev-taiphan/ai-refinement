@@ -1,6 +1,6 @@
 ---
 name: init
-description: Install the software factory into the current repo. Use when the user types /sf-factory:init, or asks to set up or install the factory in this project. Copies factory/ (scripts, config, checks, dashboard), fills checks.sh, updates AGENTS.md and .gitignore, and creates the GitHub labels.
+description: Install the software factory into the current repo. Use when the user types /kaiz-factory:init, or asks to set up or install the factory in this project. Copies factory/ (scripts, config, checks, dashboard), fills checks.sh, updates AGENTS.md and .gitignore, and creates the GitHub labels.
 ---
 
 # Install the software factory into this repo
@@ -93,7 +93,7 @@ Then add this section, filling the bullets from what you learn about the repo:
 ```markdown
 ## Software factory
 
-`/sf-factory:factory run` builds every open GitHub issue labeled
+`/kaiz-factory:factory run` builds every open GitHub issue labeled
 `factory` through intake → spec → build → gate → review → approve, one PR per
 issue. State is in `factory/jobs/` (gitignored); `factory/bin/job` is its only
 writer. Checks: `factory/checks.sh`. Dashboard: `cd factory && python3 -m
@@ -160,10 +160,10 @@ first run.
 Then tell the user, in a few lines:
 
 - Label one or two small issues `factory`, then run
-  `/sf-factory:factory run` from the repo root.
+  `/kaiz-factory:factory run` from the repo root.
 - Every job ends as a PR. The approver merges what it approves; the rest wait
   labeled `factory:needs-human`. Approve one by merging it on GitHub, or tell
-  the factory what to change with `/sf-factory:factory <anything>`.
+  the factory what to change with `/kaiz-factory:factory <anything>`.
 - Intake runs on Fable, once per issue. Depending on their plan, Fable can
   bill to usage credits rather than the plan's included usage.
 - To start carefully, set `concurrency` to 1 in `factory/config.json` and read

@@ -4,8 +4,8 @@ A Claude Code marketplace with two plugins.
 
 | Plugin | Commands | What it does |
 |---|---|---|
-| [`sf`](plugins/sf) | `/sf:analyze` | Analyses a local ticket (`.issues/<n>/ticket.md`) against your codebase and writes a cited set of design documents. Markdown only, no scripts. |
-| [`sf-factory`](plugins/sf-factory) | `/sf-factory:init`, `/sf-factory:factory` | Builds GitHub issues labeled `factory` into pull requests with a pipeline of Claude subagents. Needs `gh` and Python. |
+| [`kaiz`](plugins/kaiz) | `/kaiz:analyze` | Analyses a local ticket (`.issues/<n>/ticket.md`) against your codebase and writes a cited set of design documents. Markdown only, no scripts. |
+| [`kaiz-factory`](plugins/kaiz-factory) | `/kaiz-factory:init`, `/kaiz-factory:factory` | Builds GitHub issues labeled `factory` into pull requests with a pipeline of Claude subagents. Needs `gh` and Python. |
 
 **Hướng dẫn tiếng Việt đầy đủ (cài đặt và sử dụng): [HUONG-DAN.md](HUONG-DAN.md).**
 
@@ -16,25 +16,25 @@ the Claude Code desktop app. Not in cloud or WSL sessions.
 
 ```
 /plugin marketplace add <owner>/<repo>        # or ./path/to/ai-factory-plugin
-/plugin install sf@ai-factory
-/plugin install sf-factory@ai-factory
+/plugin install kaiz@ai-factory
+/plugin install kaiz-factory@ai-factory
 ```
 
 Install only the plugin you need. To try one for a session without installing:
-`claude --plugin-dir ./plugins/sf`.
+`claude --plugin-dir ./plugins/kaiz`.
 
 ## Layout
 
 ```
 .claude-plugin/marketplace.json   lists both plugins
-plugins/sf/                       ticket analysis: agents/, skills/analyze/
-plugins/sf-factory/               pipeline: agents/, skills/factory/, skills/init/, templates/factory/
+plugins/kaiz/           ticket analysis: agents/, skills/analyze/
+plugins/kaiz-factory/   pipeline: agents/, skills/factory/, skills/init/, templates/factory/
 ```
 
 Each plugin folder is self-contained, with its own manifest, icon, README and
-LICENSE, so either can be submitted to a plugin directory on its own. `sf` holds
+LICENSE, so either can be submitted to a plugin directory on its own. `kaiz` holds
 only Markdown, JSON and an image, which is what the Anthropic directory accepts
-from organizations that aren't verified; `sf-factory` ships scripts and so
+from organizations that aren't verified; `kaiz-factory` ships scripts and so
 can't be listed there.
 
 ## License
