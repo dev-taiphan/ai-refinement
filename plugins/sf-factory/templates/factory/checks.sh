@@ -5,7 +5,7 @@
 # the working directory. Keep it fast, deterministic and non-interactive: no
 # watch modes, no prompts, nothing that rewrites files.
 #
-# /sf:init replaces the lines below with this project's real commands, e.g.:
+# /sf-factory:init replaces the lines below with this project's real commands, e.g.:
 #
 #   npm ci --prefer-offline
 #   npm run lint

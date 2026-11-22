@@ -1,7 +1,0 @@
-{
-  "name": "sf",
-  "version": "2.0.0",
-  "description": "Builds GitHub issues labeled `factory` into merged PRs (intake → spec → build → gate → review → approve), and analyses local tickets in .issues/<n>/ticket.md into codebase-grounded docs (assessment, impact, data flow, tech spec, plan, tests, security).",
-  "license": "GPL-3.0-only",
-  "keywords": ["factory", "github", "issues", "pull-requests", "agents"]
-}

@@ -108,6 +108,15 @@ trong các phiên **local** của ứng dụng Claude Desktop (tab Code). Plugin
 chạy trong phiên cloud, phiên WSL hay ứng dụng chat claude.ai, vì factory cần
 git, `gh` và Python trên máy của bạn.
 
+Repo này là một marketplace tên `ai-factory` với **hai plugin**:
+
+| Plugin | Lệnh | Nội dung | Cần gì |
+|---|---|---|---|
+| `sf` | `/sf:analyze` | phân tích ticket cục bộ (mục 12); chỉ có Markdown, không có script | chỉ Claude Code |
+| `sf-factory` | `/sf-factory:init`, `/sf-factory:factory` | pipeline GitHub issue → PR (mục 1 đến 11) | `gh`, Python, Git Bash |
+
+Chỉ dùng phân tích ticket thì cài `sf` là đủ, không cần mục 2.
+
 ### Cách A: từ thư mục trên máy
 
 Gõ trong Claude Code:
@@ -115,6 +124,7 @@ Gõ trong Claude Code:
 ```
 /plugin marketplace add d:/ai-factory-plugin
 /plugin install sf@ai-factory
+/plugin install sf-factory@ai-factory
 ```
 
 ### Cách B: từ GitHub (để chia sẻ cho người khác)
@@ -125,6 +135,7 @@ Gõ trong Claude Code:
 ```
 /plugin marketplace add your-org/ai-factory-plugin
 /plugin install sf@ai-factory
+/plugin install sf-factory@ai-factory
 ```
 
 Nếu repo là private, người cài phải có quyền đọc repo đó.
@@ -134,6 +145,7 @@ Cũng có thể cài từ shell thay vì trong phiên Claude:
 ```bash
 claude plugin marketplace add your-org/ai-factory-plugin
 claude plugin install sf@ai-factory
+claude plugin install sf-factory@ai-factory
 ```
 
 ### Chọn phạm vi cài
@@ -147,8 +159,9 @@ Khi chạy `/plugin install`, Claude Code hỏi phạm vi:
 
 ### Kiểm tra
 
-Gõ `/plugin` và xem `sf` có trong danh sách đã cài. Gõ `/` sẽ
-thấy hai lệnh `/sf:init` và `/sf:factory`.
+Gõ `/plugin` và xem `sf` và `sf-factory` có trong danh sách đã cài. Gõ `/` sẽ
+thấy các lệnh của chúng: `/sf:analyze`, `/sf-factory:init` và
+`/sf-factory:factory`.
 
 ### Dùng thử không cài
 
@@ -171,7 +184,7 @@ repo**.
 2. Chạy:
 
    ```
-   /sf:init
+   /sf-factory:init
    ```
 
 Claude sẽ:
@@ -216,18 +229,18 @@ intake càng ít phải hỏi lại.
 ### Các lệnh
 
 ```
-/sf:factory run          xử lý mọi issue có label factory
-/sf:factory run 12       chỉ xử lý issue #12
-/sf:factory <bất kỳ>     hỏi, góp ý, hoặc tạo tính năng mới
+/sf-factory:factory run          xử lý mọi issue có label factory
+/sf-factory:factory run 12       chỉ xử lý issue #12
+/sf-factory:factory <bất kỳ>     hỏi, góp ý, hoặc tạo tính năng mới
 ```
 
 Ví dụ cho dạng `<bất kỳ>`:
 
 ```
-/sf:factory job nào đang chờ tôi?
-/sf:factory issue 12 tốn bao nhiêu tiền?
-/sf:factory tại sao job 003 bị chuyển cho người duyệt?
-/sf:factory thêm nút xuất CSV ở trang báo cáo
+/sf-factory:factory job nào đang chờ tôi?
+/sf-factory:factory issue 12 tốn bao nhiêu tiền?
+/sf-factory:factory tại sao job 003 bị chuyển cho người duyệt?
+/sf-factory:factory thêm nút xuất CSV ở trang báo cáo
 ```
 
 Câu cuối sẽ tạo một issue mới có label `factory` rồi chạy luôn.
@@ -243,7 +256,7 @@ ví dụ:
 ```
 
 Hãy để phiên đó mở cho đến khi chạy xong. Nếu lỡ tắt, chạy lại
-`/sf:factory run`, các job sẽ tiếp tục từ bước đang dở.
+`/sf-factory:factory run`, các job sẽ tiếp tục từ bước đang dở.
 
 Khi hết việc, factory in bảng tổng kết: các job đã chạy, chi phí, PR nào chờ
 bạn duyệt, câu hỏi nào chờ tác giả issue trả lời.
@@ -270,7 +283,7 @@ bạn duyệt, câu hỏi nào chờ tác giả issue trả lời.
 - **Yêu cầu sửa:** nói với factory cần đổi gì:
 
   ```
-  /sf:factory issue 12: đổi màu nút sang màu chính và thêm test cho trường hợp rỗng
+  /sf-factory:factory issue 12: đổi màu nút sang màu chính và thêm test cho trường hợp rỗng
   ```
 
   Factory lưu góp ý vào `feedback-<k>.md`, cấp lại số vòng, và builder làm
@@ -278,7 +291,7 @@ bạn duyệt, câu hỏi nào chờ tác giả issue trả lời.
 - **Bỏ:**
 
   ```
-  /sf:factory bỏ issue 12, không cần tính năng này nữa
+  /sf-factory:factory bỏ issue 12, không cần tính năng này nữa
   ```
 
   Factory ghi lý do lên issue, gỡ label, đóng PR. Issue vẫn mở.
@@ -289,7 +302,7 @@ Tác giả trả lời câu hỏi ngay trên issue. Lần chạy sau, job tự q
 intake. Bạn cũng có thể trả lời thay:
 
 ```
-/sf:factory trả lời issue 12: chỉ cần hỗ trợ file CSV, không cần Excel
+/sf-factory:factory trả lời issue 12: chỉ cần hỗ trợ file CSV, không cần Excel
 ```
 
 ### Chạy lại một issue đã bị từ chối
@@ -344,7 +357,7 @@ Lưu ý:
 **Chi phí.** Factory chạy trên gói Claude của bạn. Mỗi job dùng nhiều agent,
 phần lớn là Opus. Intake chạy trên Fable, một lần mỗi issue; tùy gói, Fable có
 thể tính vào usage credits thay vì phần dùng có sẵn trong gói. Xem chi phí từng
-job trên dashboard hoặc hỏi `/sf:factory chi phí issue 12`.
+job trên dashboard hoặc hỏi `/sf-factory:factory chi phí issue 12`.
 
 **Bắt đầu cẩn thận.** Đặt `"concurrency": 1`, chỉ gắn label cho một hai issue
 nhỏ, và đọc mọi PR cho đến khi bạn tin kết quả.
@@ -381,6 +394,7 @@ Hoặc gỡ rồi cài lại plugin. Bản cập nhật plugin **không** sửa 
 
 ```
 /plugin uninstall sf@ai-factory
+/plugin uninstall sf-factory@ai-factory
 /plugin marketplace remove ai-factory
 ```
 
@@ -394,7 +408,7 @@ thì xóa ba label trên GitHub. Xóa các worktree còn sót bằng `git worktr
 
 | Triệu chứng | Nguyên nhân thường gặp | Cách xử lý |
 |---|---|---|
-| Factory báo cần chạy init | repo chưa có `factory/` | chạy `/sf:init` |
+| Factory báo cần chạy init | repo chưa có `factory/` | chạy `/sf-factory:init` |
 | `python3` mở Microsoft Store hoặc báo không tìm thấy | alias của Windows | làm theo mục 2, phần Windows |
 | `gh: command not found` | chưa cài hoặc chưa mở terminal mới | cài `gh`, mở terminal mới, `gh auth login` |
 | Mọi job đều gate FAIL | `checks.sh` lỗi ngay trên `main` | chạy `bash factory/checks.sh` ở thư mục gốc repo và sửa script |
@@ -423,7 +437,7 @@ job (intake, spec, build, review từng vòng, decision) nằm trong cùng thư 
 Ngoài pipeline GitHub, plugin còn một chế độ **chỉ phân tích**. Bạn viết ticket
 thành file trong repo, và một nhóm agent phân tích nó dựa trên codebase thật
 rồi viết bộ tài liệu thiết kế. Chế độ này không sửa code, không tạo nhánh,
-không commit, không cần GitHub, `gh` hay `/sf:init`.
+không commit, không cần GitHub, `gh` hay `/sf-factory:init`.
 
 ### Tạo ticket
 
@@ -493,20 +507,15 @@ hoặc `đường/dẫn/file.ts:40-58`. Có ba lớp kiểm tra:
 
 1. Mỗi agent phải đọc đoạn code trước khi trích dẫn, và ghi những gì chỉ suy
    luận (không đọc được từ code) vào mục **Assumptions**.
-2. Script `scripts/check_refs.py` kiểm tra mọi trích dẫn: file phải tồn tại
-   trong repo, dòng phải nằm trong file, và mọi tài liệu (trừ 00-summary) phải
-   có ít nhất một trích dẫn. Trích dẫn hỏng được gửi lại cho agent viết tài
-   liệu đó để sửa một lần.
+2. Agent `ref-checker` kiểm tra mọi trích dẫn: file phải tồn tại trong repo,
+   dòng phải nằm trong file, và mọi tài liệu (trừ 00-summary) phải có ít nhất
+   một trích dẫn. Trích dẫn hỏng được gửi lại cho agent viết tài liệu đó để
+   sửa một lần. Agent này chỉ đọc và chạy lệnh shell đơn giản như `grep` và
+   `wc`, không ghi file nào.
 3. Agent `analysis-reviewer` đọc lại các trích dẫn quan trọng nhất để xác nhận
    code nói đúng điều tài liệu khẳng định, và kiểm tra các tài liệu khớp nhau:
    kế hoạch sửa đúng các file trong phân tích ảnh hưởng, mọi tiêu chí nghiệm
    thu có test, mọi yêu cầu bảo mật có trong kế hoạch.
-
-Bạn có thể tự chạy lại bước kiểm tra:
-
-```bash
-python3 <thư-mục-plugin>/scripts/check_refs.py .issues/123/output .
-```
 
 ### Chạy lại
 
@@ -517,11 +526,12 @@ Khi chạy lại một ticket đã có kết quả, thư mục `output/` cũ đ�
 
 Chế độ phân tích không viết code. Để build, tạo một GitHub issue có label
 `factory` (có thể dán nội dung `04-tech-spec.md` vào), rồi chạy
-`/sf:factory run <số-issue>` trên repo đã chạy init. Hoặc đưa
+`/sf-factory:factory run <số-issue>` trên repo đã chạy init (cần cài plugin
+`sf-factory`). Hoặc đưa
 `05-implementation-plan.md` cho Claude và làm theo từng bước.
 
 ### Chi phí
 
-Mỗi ticket dùng 7 agent: 4 trên Opus (đánh giá, bảo mật, tech spec, review) và
-3 trên Sonnet (ảnh hưởng, data flow, test), cộng thêm lượt sửa trích dẫn nếu
-cần. Chế độ này không dùng Fable.
+Mỗi ticket dùng 8 agent: 4 trên Opus (đánh giá, bảo mật, tech spec, review) và
+4 trên Sonnet (ảnh hưởng, data flow, test, kiểm tra trích dẫn), cộng thêm lượt
+sửa trích dẫn nếu cần. Chế độ này không dùng Fable.

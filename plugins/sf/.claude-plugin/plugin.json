@@ -1,0 +1,10 @@
+{
+  "name": "sf",
+  "version": "1.0.0",
+  "description": "Analyses a local ticket (.issues/<n>/ticket.md) against your codebase and writes assessment, impact analysis, data flow, tech spec, implementation plan, test plan and security review, every claim cited to code.",
+  "author": {
+    "name": "Kaiz (Zenlunaris)"
+  },
+  "license": "GPL-3.0-only",
+  "keywords": ["analysis", "tickets", "tech-spec", "planning", "codebase"]
+}

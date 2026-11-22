@@ -1,13 +1,18 @@
 {
   "name": "ai-factory",
   "owner": {
-    "name": "ai-factory"
+    "name": "Kaiz (Zenlunaris)"
   },
-  "description": "The software factory plugin for Claude Code.",
+  "description": "Claude Code plugins: ticket analysis grounded in your codebase, and a GitHub issue to pull request software factory.",
   "plugins": [
     {
       "name": "sf",
-      "source": "./",
+      "source": "./plugins/sf",
+      "description": "Analyses local tickets against your codebase into a cited set of design documents. Markdown only, no scripts."
+    },
+    {
+      "name": "sf-factory",
+      "source": "./plugins/sf-factory",
       "description": "Builds GitHub issues labeled `factory` into merged PRs with a pipeline of Claude subagents."
     }
   ]

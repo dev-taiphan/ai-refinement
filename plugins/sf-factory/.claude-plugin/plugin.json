@@ -1,0 +1,10 @@
+{
+  "name": "sf-factory",
+  "version": "2.0.0",
+  "description": "Builds GitHub issues labeled `factory` into merged PRs with a pipeline of Claude subagents: intake, spec, build, gate, review, approve. Run /sf-factory:init once per repo, then /sf-factory:factory run.",
+  "author": {
+    "name": "Kaiz (Zenlunaris)"
+  },
+  "license": "GPL-3.0-only",
+  "keywords": ["factory", "github", "issues", "pull-requests", "agents"]
+}

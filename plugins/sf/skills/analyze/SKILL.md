@@ -62,23 +62,17 @@ per step, e.g. `123: assessment GO (risk medium, ui, api) → impact, data flow,
 3. **Design.** Spawn `tech-spec-writer`. If it replies `SPEC: blocked`, go to
    step 5.
 4. **Test.** Spawn `test-planner`.
-5. **Check references.** Run:
-
-   ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check_refs.py" "<repo>/.issues/<ticket>/output" "<repo>"
-   ```
-
-   If `python3` isn't a working Python (on Windows it can be the Microsoft
-   Store alias), run the same command with `python`.
+5. **Check references.** Spawn `ref-checker` with the header. It replies
+   `REFS: PASS` or `REFS: FAIL` followed by one `FAIL` line per problem.
 
    On `REFS: FAIL`, group the `FAIL` lines by document and spawn each
    document's author again, in one message, with the header and:
    `Your document <file> has broken code references. Fix only these, by reading the code and citing the right lines, and leave the rest of the document as it is:` followed by its `FAIL` lines.
    Authors: 01 `ticket-analyst`, 02 `impact-analyst`, 03 `dataflow-analyst`,
    04 and 05 `tech-spec-writer`, 06 `test-planner`, 07 `security-analyst`.
-   Then run the check once more. Don't loop further.
+   Then spawn `ref-checker` once more. Don't loop further.
 6. **Review.** Spawn `analysis-reviewer` with the header and
-   `Reference check: <the check's last line, and any FAIL lines>`.
+   `Reference check: <the checker's last reply, with any FAIL lines>`.
 7. **Report.** Print the first two lines of `00-summary.md`, its `## Summary`
    bullets, the open questions if any, and the path of the output folder.
 
@@ -102,5 +96,7 @@ output/07-security.md             security-analyst: risks and requirements
 
 When the user asks about a ticket's analysis rather than running one, answer
 from its `output/` documents, reading them in full as needed, and cite them.
-To turn an analysed ticket into a build, the user can file it as a GitHub
-issue labeled `factory` and run `/sf:factory run <n>`.
+This plugin only analyses; it never changes code. To build from an analysis,
+the user can follow `05-implementation-plan.md` step by step, or, with the
+`sf-factory` plugin installed, file the ticket as a GitHub issue labeled
+`factory` and run `/sf-factory:factory run <n>`.
