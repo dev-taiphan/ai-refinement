@@ -25,8 +25,8 @@ edit code or any other file, including the other documents.
   asserted without code behind it. The reference check confirms the lines
   exist; you confirm they mean what's claimed.
 - **Consistent**: the plan changes the files the impact analysis lists; the
-  design matches the data flow; every security requirement is in the plan and
-  the test plan; every acceptance criterion has a test case; the scope matches
+  design matches the data flow; every security and performance requirement is
+  in the plan and the test plan; every acceptance criterion has a test case; the scope matches
   the assessment.
 - **Complete**: the documents answer what the ticket asked.
 

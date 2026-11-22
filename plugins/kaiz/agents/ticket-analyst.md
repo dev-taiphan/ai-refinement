@@ -27,7 +27,7 @@ theirs. Spend your effort finding the code the ticket really touches.
 
 - Cite existing code as `path:line` or `path:start-end` in backticks, with the
   path relative to the repo root and forward slashes. Read the lines before you
-  cite them. A script checks every citation against the repo.
+  cite them. A checker verifies every citation against the repo.
 - Never describe code you haven't read. If you couldn't find something, say
   so.
 - Anything you infer rather than read goes under **Assumptions**.

@@ -28,10 +28,31 @@ The analysis lands in `.issues/<ticket>/output/`:
 05-implementation-plan.md  ordered steps by file
 06-test-plan.md            test cases mapped to acceptance criteria
 07-security.md             risks and requirements
+08-performance.md          hot paths, costs, budgets, how to measure
+approval.md                your decision, written by /kaiz:approve
 ```
 
 A rerun keeps the previous analysis as `output-<timestamp>/`. Documents are
 written in the language the ticket is written in.
+
+## Approve a plan
+
+The analysis proposes; you decide. `/kaiz:approve` shows a short brief (verdict,
+risk, size, security and performance ratings, the proposed solution, open
+questions) and records your decision in `output/approval.md`:
+
+```
+/kaiz:approve 123                          approve
+/kaiz:approve 123 <conditions>             approve with conditions
+/kaiz:approve 123 reject <reason>          request changes
+/kaiz:approve 123 status                   show the decision on file
+```
+
+It refuses to approve a ticket whose analysis is `STOPPED` or whose verdict is
+NO-GO, and asks you to confirm when the analysis has gaps, open questions, a
+`high` security or performance rating, or is older than the ticket. A rerun of
+`/kaiz:analyze` moves the old decision with the old analysis, so a new analysis
+needs a new decision. It changes no code.
 
 ## How it stays tied to your code
 
@@ -41,10 +62,12 @@ written in the language the ticket is written in.
    ones once.
 3. `analysis-reviewer` re-reads the most important citations and checks the
    documents agree: the plan changes the files the impact analysis lists, every
-   acceptance criterion has a test, every security requirement is planned.
+   acceptance criterion has a test, every security and performance requirement
+   is planned.
 
 ## Agents
 
 `ticket-analyst`, `impact-analyst`, `dataflow-analyst`, `security-analyst`,
-`tech-spec-writer`, `test-planner`, `ref-checker`, `analysis-reviewer`. They
-only read your repo and write files under `.issues/<ticket>/output/`.
+`performance-analyst`, `tech-spec-writer`, `test-planner`, `ref-checker`,
+`analysis-reviewer`. They only read your repo and write files under
+`.issues/<ticket>/output/`.

@@ -1,6 +1,6 @@
 ---
 name: analyze
-description: Analyse local tickets against the codebase without writing code. Use when the user types /kaiz:analyze, /kaiz:analyze <ticket>, or asks to analyse a ticket in .issues/<ticket>/ticket.md. Writes assessment, impact analysis, data flow, tech spec, implementation plan, test plan, security review and a summary to .issues/<ticket>/output/.
+description: Analyse local tickets against the codebase without writing code. Use when the user types /kaiz:analyze, /kaiz:analyze <ticket>, or asks to analyse a ticket in .issues/<ticket>/ticket.md. Writes assessment, impact analysis, data flow, tech spec, implementation plan, test plan, security review, performance review and a summary to .issues/<ticket>/output/.
 ---
 
 # Analyze
@@ -56,9 +56,9 @@ per step, e.g. `123: assessment GO (risk medium, ui, api) → impact, data flow,
    - `NO-GO`: go to step 5.
    - `GO` or `NEEDS-INFO`: go on. NEEDS-INFO analyses continue on the
      assessment's stated assumptions.
-2. **Analyse.** Spawn `impact-analyst`, `dataflow-analyst` and
-   `security-analyst` in one message, so they run in parallel. Wait for all
-   three.
+2. **Analyse.** Spawn `impact-analyst`, `dataflow-analyst`,
+   `security-analyst` and `performance-analyst` in one message, so they run in
+   parallel. Wait for all four.
 3. **Design.** Spawn `tech-spec-writer`. If it replies `SPEC: blocked`, go to
    step 5.
 4. **Test.** Spawn `test-planner`.
@@ -69,12 +69,14 @@ per step, e.g. `123: assessment GO (risk medium, ui, api) → impact, data flow,
    document's author again, in one message, with the header and:
    `Your document <file> has broken code references. Fix only these, by reading the code and citing the right lines, and leave the rest of the document as it is:` followed by its `FAIL` lines.
    Authors: 01 `ticket-analyst`, 02 `impact-analyst`, 03 `dataflow-analyst`,
-   04 and 05 `tech-spec-writer`, 06 `test-planner`, 07 `security-analyst`.
+   04 and 05 `tech-spec-writer`, 06 `test-planner`, 07 `security-analyst`,
+   08 `performance-analyst`.
    Then spawn `ref-checker` once more. Don't loop further.
 6. **Review.** Spawn `analysis-reviewer` with the header and
    `Reference check: <the checker's last reply, with any FAIL lines>`.
 7. **Report.** Print the first two lines of `00-summary.md`, its `## Summary`
-   bullets, the open questions if any, and the path of the output folder.
+   bullets, the open questions if any, and the path of the output folder. Tell
+   the user that `/kaiz:approve <ticket>` records their decision on it.
 
 Analyse one ticket at a time. When several are queued, start the next after
 step 7.
@@ -90,6 +92,8 @@ output/04-tech-spec.md            tech-spec-writer: acceptance criteria and desi
 output/05-implementation-plan.md  tech-spec-writer: ordered steps by file
 output/06-test-plan.md            test-planner: cases mapped to acceptance criteria
 output/07-security.md             security-analyst: risks and requirements
+output/08-performance.md          performance-analyst: hot paths, costs, budgets, how to measure
+output/approval.md                written later by /kaiz:approve, not by the analysis
 ```
 
 ## Questions about an analysis

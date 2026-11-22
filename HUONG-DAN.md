@@ -485,7 +485,9 @@ Người dùng cần tải báo cáo doanh thu theo tháng dưới dạng CSV t�
 ├── 04-tech-spec.md            tiêu chí nghiệm thu và thiết kế kỹ thuật
 ├── 05-implementation-plan.md  các bước triển khai theo từng file
 ├── 06-test-plan.md            test case gắn với từng tiêu chí nghiệm thu
-└── 07-security.md             rủi ro bảo mật và yêu cầu cho phần triển khai
+├── 07-security.md             rủi ro bảo mật và yêu cầu cho phần triển khai
+├── 08-performance.md          hiệu năng: đường chạy nóng, chi phí, ngân sách, cách đo
+└── approval.md                quyết định duyệt của bạn (do /kaiz:approve ghi, xem bên dưới)
 ```
 
 Nên đọc `00-summary.md` trước. Dòng đầu cho biết kết quả tổng:
@@ -515,7 +517,37 @@ hoặc `đường/dẫn/file.ts:40-58`. Có ba lớp kiểm tra:
 3. Agent `analysis-reviewer` đọc lại các trích dẫn quan trọng nhất để xác nhận
    code nói đúng điều tài liệu khẳng định, và kiểm tra các tài liệu khớp nhau:
    kế hoạch sửa đúng các file trong phân tích ảnh hưởng, mọi tiêu chí nghiệm
-   thu có test, mọi yêu cầu bảo mật có trong kế hoạch.
+   thu có test, mọi yêu cầu bảo mật và hiệu năng có trong kế hoạch.
+
+### Duyệt phương án: `/kaiz:approve`
+
+Phân tích chỉ đề xuất. Quyết định là của bạn, và lệnh này ghi lại quyết định đó
+vào `.issues/<ticket>/output/approval.md`:
+
+```
+/kaiz:approve 123                          duyệt phương án
+/kaiz:approve 123 chỉ làm bước 1 và 2      duyệt kèm điều kiện (ghi nguyên văn)
+/kaiz:approve 123 reject thiếu phương án rollback   yêu cầu sửa
+/kaiz:approve 123 status                   xem quyết định đang lưu
+```
+
+Lệnh trình bày bản tóm tắt để bạn quyết định: kết luận, rủi ro, kích thước,
+mức bảo mật và hiệu năng, phương án đề xuất, các vấn đề và câu hỏi còn mở.
+
+- **Không duyệt được** khi phân tích là `STOPPED`, kết luận là NO-GO, hoặc
+  tech spec bị `blocked`. Lúc đó chỉ ghi được yêu cầu sửa.
+- **Phải xác nhận lại** khi phân tích là `GAPS`, còn câu hỏi mở, kết luận là
+  NEEDS-INFO, bảo mật hoặc hiệu năng ở mức `high`, hoặc `ticket.md` mới hơn
+  kết quả. Lệnh liệt kê từng điểm và hỏi bạn có duyệt tiếp không. Không xác
+  nhận thì không ghi gì.
+- Kết quả có ba loại: `APPROVED`, `APPROVED-WITH-CONDITIONS`,
+  `CHANGES-REQUESTED`. Với yêu cầu sửa, lệnh gợi ý chạy lại
+  `/kaiz:analyze 123 <lý do>` để lý do đó làm ghi chú cho lần phân tích mới.
+- Quyết định gắn với bản phân tích hiện tại. Chạy lại `/kaiz:analyze` thì
+  `approval.md` đi theo `output-<ngày-giờ>/` cũ, và bản phân tích mới cần được
+  duyệt lại.
+
+Lệnh chỉ ghi lại quyết định, không bắt đầu làm gì và không sửa code.
 
 ### Chạy lại
 
@@ -532,6 +564,7 @@ Chế độ phân tích không viết code. Để build, tạo một GitHub issu
 
 ### Chi phí
 
-Mỗi ticket dùng 8 agent: 4 trên Opus (đánh giá, bảo mật, tech spec, review) và
-4 trên Sonnet (ảnh hưởng, data flow, test, kiểm tra trích dẫn), cộng thêm lượt
-sửa trích dẫn nếu cần. Chế độ này không dùng Fable.
+Mỗi ticket dùng 9 agent: 4 trên Opus (đánh giá, bảo mật, tech spec, review) và
+5 trên Sonnet (ảnh hưởng, data flow, hiệu năng, test, kiểm tra trích dẫn), cộng
+thêm lượt sửa trích dẫn nếu cần. `/kaiz:approve` chỉ dùng phiên hiện tại, không
+chạy agent nào. Chế độ này không dùng Fable.

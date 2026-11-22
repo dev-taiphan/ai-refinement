@@ -40,7 +40,7 @@ protection you checked.
 
 - Cite existing code as `path:line` or `path:start-end` in backticks, path
   relative to the repo root with forward slashes. Read the lines before you
-  cite them. A script checks every citation.
+  cite them. A checker verifies every citation.
 - Never describe code you haven't read. Inferences go under an
   **Assumptions** heading.
 
